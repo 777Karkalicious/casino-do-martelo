@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Casino do Martelo 🦈</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Tela de Login -->
+    <div id="loginScreen" class="screen active">
+        <div class="login-container">
+            <div class="casino-header">
+                <h1>🦈 Casino do Martelo 🦈</h1>
+                <p class="subtitle">Sistema de Login de Tubarões Mafiosos</p>
+            </div>
+            
+            <form id="loginForm" class="login-form">
+                <div class="form-group">
+                    <label for="loginUsername">Nome de Usuário (Tubarão):</label>
+                    <input type="text" id="loginUsername" placeholder="Ex: Tubarão-Branco" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="loginPassword">Senha:</label>
+                    <input type="password" id="loginPassword" placeholder="Sua senha secreta" required>
+                </div>
+                
+                <button type="submit" class="btn btn-primary">Entrar no Casino 🎰</button>
+                <button type="button" class="btn btn-secondary" onclick="showRegisterScreen()">Criar Conta</button>
+            </form>
+            
+            <div class="info-banner">
+                <p>💚 30% dos ganhos são investidos em limpeza oceânica! 🌊</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Tela de Registro -->
+    <div id="registerScreen" class="screen">
+        <div class="login-container">
+            <div class="casino-header">
+                <h1>🦈 Registre seu Tubarão 🦈</h1>
+                <p class="subtitle">Junte-se à máfia do Casino do Martelo</p>
+            </div>
+            
+            <form id="registerForm" class="login-form">
+                <div class="form-group">
+                    <label for="registerUsername">Nome de Usuário:</label>
+                    <input type="text" id="registerUsername" placeholder="Escolha um nome de tubarão" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="registerEmail">Email:</label>
+                    <input type="email" id="registerEmail" placeholder="seu@email.com" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="registerPassword">Senha:</label>
+                    <input type="password" id="registerPassword" placeholder="Mínimo 6 caracteres" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="registerBalance">Saldo Inicial ($):</label>
+                    <input type="number" id="registerBalance" placeholder="1000" value="1000" min="0" required>
+                </div>
+                
+                <button type="submit" class="btn btn-primary">Registrar 🎰</button>
+                <button type="button" class="btn btn-secondary" onclick="showLoginScreen()">Voltar</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Tela Principal do Casino -->
+    <div id="casinoScreen" class="screen">
+        <nav class="navbar">
+            <div class="nav-brand">🦈 Casino do Martelo</div>
+            <div class="nav-user">
+                <span id="userGreeting">Bem-vindo!</span>
+                <button class="btn btn-logout" onclick="logout()">Sair</button>
+            </div>
+        </nav>
+
+        <div class="casino-layout">
+            <!-- Sidebar -->
+            <aside class="sidebar">
+                <div class="user-profile">
+                    <h3 id="profileUsername">Tubarão</h3>
+                    <div class="balance-box">
+                        <label>Saldo</label>
+                        <p id="userBalance">$0.00</p>
+                    </div>
+                </div>
+
+                <div class="menu">
+                    <button class="menu-item active" onclick="switchTab('games')">🎰 Jogos</button>
+                    <button class="menu-item" onclick="switchTab('history')">📊 Histórico</button>
+                    <button class="menu-item" onclick="switchTab('leaderboard')">🏆 Ranking</button>
+                    <button class="menu-item" onclick="switchTab('info')">ℹ️ Sobre</button>
+                </div>
+            </aside>
+
+            <!-- Conteúdo Principal -->
+            <main class="content">
+                <!-- Aba de Jogos -->
+                <div id="gamesTab" class="tab-content active">
+                    <h2>Escolha seu Jogo 🎲</h2>
+                    <div class="games-grid">
+                        <div class="game-card" onclick="startGame('coinflip')">
+                            <h3>Cara ou Coroa</h3>
+                            <p class="game-icon">🪙</p>
+                            <p class="game-desc">Simples, rápido e emocionante!</p>
+                            <p class="game-odds">Chance: 50%</p>
+                        </div>
+
+                        <div class="game-card" onclick="startGame('dice')">
+                            <h3>Dados</h3>
+                            <p class="game-icon">🎲</p>
+                            <p class="game-desc">Escolha um número de 1 a 6</p>
+                            <p class="game-odds">Chance: 16,7%</p>
+                        </div>
+
+                        <div class="game-card" onclick="startGame('slots')">
+                            <h3>Máquina Caça-Níqueis</h3>
+                            <p class="game-icon">🎰</p>
+                            <p class="game-desc">Teste sua sorte!</p>
+                            <p class="game-odds">Chance: Variável</p>
+                        </div>
+
+                        <div class="game-card" onclick="startGame('roulette')">
+                            <h3>Roleta</h3>
+                            <p class="game-icon">🎡</p>
+                            <p class="game-desc">Escolha números ou cores</p>
+                            <p class="game-odds">Chance: Variável</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Aba de Jogo Ativo -->
+                <div id="gameTab" class="tab-content">
+                    <div class="game-container">
+                        <h2 id="gameTitle">Jogo</h2>
+                        <div id="gameContent"></div>
+                        <button class="btn btn-secondary" onclick="backToGames()">Voltar aos Jogos</button>
+                    </div>
+                </div>
+
+                <!-- Aba de Histórico -->
+                <div id="historyTab" class="tab-content">
+                    <h2>Histórico de Apostas 📊</h2>
+                    <div class="table-responsive">
+                        <table id="historyTable" class="history-table">
+                            <thead>
+                                <tr>
+                                    <th>Data</th>
+                                    <th>Jogo</th>
+                                    <th>Aposta</th>
+                                    <th>Resultado</th>
+                                    <th>Ganho/Perda</th>
+                                </tr>
+                            </thead>
+                            <tbody id="historyBody">
+                                <tr><td colspan="5" class="empty">Nenhuma aposta ainda</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Aba de Ranking -->
+                <div id="leaderboardTab" class="tab-content">
+                    <h2>Ranking dos Tubarões 🏆</h2>
+                    <table class="leaderboard-table">
+                        <thead>
+                            <tr>
+                                <th>Posição</th>
+                                <th>Tubarão</th>
+                                <th>Saldo</th>
+                                <th>Apostas</th>
+                            </tr>
+                        </thead>
+                        <tbody id="leaderboardBody">
+                            <tr><td colspan="4" class="empty">Carregando...</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Aba de Informações -->
+                <div id="infoTab" class="tab-content">
+                    <h2>Sobre o Casino 🦈</h2>
+                    <div class="info-content">
+                        <h3>Bem-vindo ao Casino do Martelo!</h3>
+                        <p>Um casino fictício onde tubarões mafiosos apostam e se divertem. 
+                           <strong>30% de todos os ganhos são investidos em limpeza oceânica e reciclagem!</strong></p>
+                        
+                        <h4>Como Funciona?</h4>
+                        <ul>
+                            <li>Crie uma conta com seu nome de tubarão</li>
+                            <li>Escolha um dos nossos jogos emocionantes</li>
+                            <li>Faça suas apostas com estratégia</li>
+                            <li>Ganhe prêmios e suba no ranking!</li>
+                        </ul>
+
+                        <h4>Responsabilidade Social</h4>
+                        <p>💚 Este casino é comprometido com o meio ambiente!</p>
+                        <ul>
+                            <li>30% dos ganhos → Limpeza do oceano</li>
+                            <li>20% dos ganhos → Programas de reciclagem</li>
+                            <li>Protegendo habitats marinhos 🌊</li>
+                        </ul>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <script src="db.js"></script>
+    <script src="games.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
